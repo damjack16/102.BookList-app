@@ -37,7 +37,10 @@ class UI {
     }
 
     // Method to delete book from list
-    static deleteBook() {
+    static deleteBook(element) {
+        if (element.classList.contains("delete")) {
+            element.parentElement.parentElement.remove();
+        }
 
     }
     // Method to show alert when we add book, remove or dont fill inputs
@@ -65,7 +68,6 @@ form.addEventListener('submit', (e) => {
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const isbn = document.querySelector('#isbn').value;
-    const tableColumns = [...document.querySelectorAll('td')]
 
     // Instatiate book
     const book = new Book(title, author, isbn);
@@ -75,7 +77,6 @@ form.addEventListener('submit', (e) => {
         return
     } else {
         UI.addBookToList(book);
-        console.log(tableColumns)
     }
 
     // Clear inputs value after submit
@@ -83,3 +84,4 @@ form.addEventListener('submit', (e) => {
 })
 
 // Event: Remove a Book
+document.querySelector("#book-list").addEventListener('click', (e) => UI.deleteBook(e.target))
