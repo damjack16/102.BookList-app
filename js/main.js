@@ -43,10 +43,21 @@ class UI {
         }
 
     }
-    // Method to show alert when we add book, remove or dont fill inputs
-    static showAlert() {
 
+    // Method to show alert when we add book, remove or dont fill inputs
+    static showAlert(message, className) {
+        const div = document.createElement("div");
+        const form = document.querySelector("#book-form");
+        const container = document.querySelector(".container");
+        div.appendChild(document.createTextNode(message));
+        div.className = `alert alert-${className}`;
+        container.insertBefore(div, form);
+
+        setTimeout(() => {
+            document.querySelector(".alert").remove();
+        }, 2000);
     }
+
     // Method to clear inputs after add book
     static clearInputs() {
         document.querySelector('#title').value = "";
@@ -74,14 +85,20 @@ form.addEventListener('submit', (e) => {
 
     //Validate and add Book to UI
     if (title === "" || author === "" || isbn === "") {
-        return
+        UI.showAlert("Please fill the gaps!", "info");
     } else {
         UI.addBookToList(book);
+        //Show the alert when the book will be added
+        UI.showAlert("Book added", "success");
+        // Clear inputs value after submit
+        UI.clearInputs();
     }
-
-    // Clear inputs value after submit
-    UI.clearInputs();
 })
 
 // Event: Remove a Book
-document.querySelector("#book-list").addEventListener('click', (e) => UI.deleteBook(e.target))
+document.querySelector("#book-list").addEventListener('click', (e) => {
+    //Delete the targeted book
+    UI.deleteBook(e.target);
+    //Show the alert when the book will be removed
+    UI.showAlert("Book removed", "danger");
+})
