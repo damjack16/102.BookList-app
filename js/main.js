@@ -143,10 +143,18 @@ document.querySelector("#book-list").addEventListener('click', (e) => {
 
 // Event: Remove all books
 document.querySelector(".btn-warning").addEventListener('click', (e) => {
-    // Delete all books from UI
-    UI.deleteAllBooks();
-    // Delete all books from local storage
-    Store.removeAllBooks();
-    // Show alert when all books will be removed
-    UI.showAlert("All books removed", "danger");
+
+    const list = document.querySelector('#book-list');
+
+    // Validate if we have empty book list
+    if (list.childNodes.length > 0) {
+        // Show alert when all books will be removed
+        UI.showAlert("All books removed", "danger");
+        // Delete all books from UI
+        UI.deleteAllBooks();
+        // Delete all books from local storage
+        Store.removeAllBooks();
+    } else {
+        return
+    }
 })
