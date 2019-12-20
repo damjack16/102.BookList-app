@@ -113,10 +113,15 @@ form.addEventListener('submit', (e) => {
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const isbn = document.querySelector('#isbn').value;
-
-    // Validate and add Book to UI
+    const storageBooks = Store.getBooks();
     if (title === "" || author === "" || isbn === "") {
         UI.showAlert("Please fill the gaps!", "info");
+    }
+    // Validate ISBN
+    else if (typeof (storageBooks.find(element => {
+            return element.isbn === isbn;
+        })) !== 'undefined') {
+        UI.showAlert("You have book with this ISBN!", "info");
     } else {
         // Instatiate book
         const book = new Book(title, author, isbn);
