@@ -138,12 +138,16 @@ form.addEventListener('submit', (e) => {
 
 // Event: Remove a Book
 document.querySelector("#book-list").addEventListener('click', (e) => {
-    // Delete the targeted book
-    UI.deleteBook(e.target);
-    // Delete book from local storage
-    Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
-    // Show alert when book will be removed
-    UI.showAlert("Book removed", "danger");
+    if (!e.target.classList.contains('delete')) {
+        return
+    } else {
+        // Delete the targeted book
+        UI.deleteBook(e.target);
+        // Delete book from local storage
+        Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
+        // Show alert when book will be removed
+        UI.showAlert("Book removed", "danger");
+    }
 })
 
 // Event: Remove all books
