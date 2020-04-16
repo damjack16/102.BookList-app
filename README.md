@@ -13,7 +13,7 @@
 * GIT
 
 ## Status
-Project is: *in progress. I will add ISBN validation*
+Project is: *Done*
 
 ## Inspiration
 Bootstrapped from https://bootswatch.com/
